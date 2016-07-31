@@ -1,4 +1,6 @@
-Challenges
+This is a project which codes an airplane-shooting  game using html, css and javascript. 
+
+Challenges:
 
 1. (Easy) Change the background of the game
 2. (Easy) Get the hero to move up and down
