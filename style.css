@@ -6,27 +6,37 @@ body{
 	width:1000px;
 	height:550px;
 }
-#hero{
-	background: url('1942.gif');  /* these are css sprites */
-	background-position: -85px -180px; /* moves sprite images */
-	width:28px; /* restricts width of the larger image */
-	height:28px; /* restricts the height of the larger image */
-	position:absolute;
+
+#hero {
+    background: url('2.gif'); /* Ova slika ostaje ista */
+	background-size: cover; /* Automatski prilagođava dimenzije slike */
+    background-position: center; /* Centriranje slike */
+    width: 80px; /* Nova širina */
+    height: 80px; /* Nova visina */
+    position: absolute;
 }
-.enemy1{
-	background: url('1942.gif');
-	background-position: -30px -10px;
-	width:28px;
-	height:28px;
-	position:absolute;
+
+.enemy1 {
+    background: url('1.gif'); /* Zameni sa odgovarajućim GIF-om */
+    background-size: cover; /* Automatski prilagođava dimenzije slike */
+    background-position: center; /* Centriranje slike */
+    width: 40px; /* Nova širina */
+    height: 40px; /* Nova visina */
+    position: absolute;
 }
-.bullet{
-	background: url('1942.gif');
-	background-position: -185px -400px;
-	width:18px;
-	height:18px;
-	position:absolute;
+
+
+.bullet {
+    background: url('1942.gif'); /* Sprite slika ostaje ista */
+    background-position: -185px -400px; /* Ažurirano */
+    background-size: auto; /* Držimo originalni izgled sprite slike */
+    width: 18px; /* Povratak na originalnu veličinu metka */
+    height: 18px;
+    position: absolute;
 }
+
+
+
 #score{
 	position:absolute;
 	border:10px solid red;
