@@ -1,7 +1,10 @@
 var score = 0;
 var hero = {   
     x: 300,
-    y: 400
+    y: 400,
+    width: 20, // Dodata širina heroja
+    height: 20, // Dodata visina heroja
+    speed: 10 // Brzina heroja
 };
 
 var enemies = [
@@ -12,16 +15,18 @@ var enemies = [
 ];
 
 var bullets = [];
+var keys = {}; // Praćenje pritisnutih tastera
 
 function displayHero() { 
-    document.getElementById('hero').style['top'] = hero.y + "px";
-    document.getElementById('hero').style['left'] = hero.x + "px";
+    const heroElement = document.getElementById('hero');
+    heroElement.style.top = hero.y + "px";
+    heroElement.style.left = hero.x + "px";
 }
 
 function displayEnemies() {
     var output = '';
     for (var i = 0; i < enemies.length; i++) {
-        output += "<div class='enemy1' style='top:" + enemies[i].y + "px; left:" + enemies[i].x + "px;'></div>";
+        output += `<div class='enemy1' style='top:${enemies[i].y}px; left:${enemies[i].x}px;'></div>`;
     }
     document.getElementById('enemies').innerHTML = output;
 }
@@ -30,9 +35,9 @@ function moveEnemies() {
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].y += 5;
 
-        if (enemies[i].y > 540) {
+        if (enemies[i].y > 540) { // Kada neprijatelj izađe iz okvira
             enemies[i].y = 0;
-            enemies[i].x = Math.random() * 500;
+            enemies[i].x = Math.random() * 980; // Nasumična nova pozicija
         }
     }
 }
@@ -42,8 +47,8 @@ function moveBullets() {
         bullets[i].y -= 5;
 
         if (bullets[i].y < 0) {
-            bullets[i] = bullets[bullets.length - 1];
-            bullets.pop();
+            bullets.splice(i, 1); // Uklanjanje metka ako izađe iz okvira
+            i--; // Korekcija indeksa nakon uklanjanja
         }
     }
 }
@@ -51,7 +56,7 @@ function moveBullets() {
 function displayBullets() {
     var output = '';
     for (var i = 0; i < bullets.length; i++) {
-        output += "<div class='bullet' style='top:" + bullets[i].y + "px; left:" + bullets[i].x + "px;'></div>"; 
+        output += `<div class='bullet' style='top:${bullets[i].y}px; left:${bullets[i].x}px;'></div>`; 
     }
     document.getElementById('bullets').innerHTML = output;
 }
@@ -61,48 +66,71 @@ function displayScore() {
 }
 
 function gameLoop() {
-    displayHero();
     moveEnemies();
-    displayEnemies();
     moveBullets();
-    displayBullets();
     detectCollision();
+
+    displayHero();
+    displayEnemies();
+    displayBullets();
     displayScore();
+}
+
+function moveHero(direction) {
+    const maxWidth = 1000; // Maksimalna širina ekrana
+    const maxHeight = 563; // Maksimalna visina ekrana
+
+    if (direction === "up" && hero.y > 0) {
+        hero.y -= hero.speed;
+    } else if (direction === "down" && hero.y + hero.height < maxHeight) {
+        hero.y += hero.speed;
+    } else if (direction === "left" && hero.x > 0) {
+        hero.x -= hero.speed;
+    } else if (direction === "right" && hero.x + hero.width < maxWidth) {
+        hero.x += hero.speed;
+    }
 }
 
 function detectCollision() {
     for (var i = 0; i < bullets.length; i++) {
         for (var j = 0; j < enemies.length; j++) {
-            if (Math.abs(bullets[i].x - enemies[j].x) < 10 && Math.abs(bullets[i].y - enemies[j].y) < 10) {
+            if (Math.abs(bullets[i].x - enemies[j].x) < 15 && Math.abs(bullets[i].y - enemies[j].y) < 15) {
                 console.log('bullet', i, 'and enemy', j, 'collided');
                 score += 10;
 
-                // Removing collided enemy
                 enemies.splice(j, 1);
                 bullets.splice(i, 1);
-                break; // Exit loop after collision is detected
+                i--; // Korekcija indeksa metaka
+                break;
             }
         }
     }
 }
 
-setInterval(gameLoop, 20); // this says to run gameLoop every 20ms
+document.onkeydown = function(event) {
+    keys[event.key] = true; // Obeleži taster kao pritisnut
+};
 
-document.onkeydown = function(a) {
-    if (a.keyCode == 37) { // key left
-        hero.x -= 10;
-    } else if (a.keyCode == 39) { // key right
-        hero.x += 10;
+document.onkeyup = function(event) {
+    keys[event.key] = false; // Obeleži taster kao otpušten
+};
+
+function updateGame() {
+    if (keys["ArrowUp"]) moveHero("up");
+    if (keys["ArrowDown"]) moveHero("down");
+    if (keys["ArrowLeft"]) moveHero("left");
+    if (keys["ArrowRight"]) moveHero("right");
+    if (keys[" "]) {
+        bullets.push({x: hero.x + hero.width / 2 - 2, y: hero.y - 10}); // Dodaj metak
+        keys[" "] = false; // Resetuj space bar da se metak ne dodaje više puta
     }
-    if (a.keyCode == 38) { // key up
-        hero.y -= 10;
-    } else if (a.keyCode == 40) { // key down
-        hero.y += 10;
-    } else if (a.keyCode == 32) { // space bar
-        bullets.push({x: hero.x + 6, y: hero.y - 15});
-    }
-    displayHero();
 }
 
+setInterval(() => {
+    updateGame();
+    gameLoop();
+}, 20);
+
+// Prikazivanje početnog stanja
 displayHero(); 
-displayEnemies();
+displayEnemies(); 
