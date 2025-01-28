@@ -82,11 +82,11 @@ function moveHero(direction) {
 
     if (direction === "up" && hero.y > 0) {
         hero.y -= hero.speed;
-    } else if (direction === "down" && hero.y + hero.height < maxHeight) {
+    } else if (direction === "down" && hero.y + hero.height < maxHeight-70) {
         hero.y += hero.speed;
-    } else if (direction === "left" && hero.x > 0) {
+    } else if (direction === "left" && hero.x > 30) {
         hero.x -= hero.speed;
-    } else if (direction === "right" && hero.x + hero.width < maxWidth) {
+    } else if (direction === "right" && hero.x + hero.width < maxWidth-70) {
         hero.x += hero.speed;
     }
 }
@@ -94,7 +94,7 @@ function moveHero(direction) {
 function detectCollision() {
     for (var i = 0; i < bullets.length; i++) {
         for (var j = 0; j < enemies.length; j++) {
-            if (Math.abs(bullets[i].x - enemies[j].x) < 15 && Math.abs(bullets[i].y - enemies[j].y) < 15) {
+            if (Math.abs(bullets[i].x - enemies[j].x) < 30 && Math.abs(bullets[i].y - enemies[j].y) < 30) {
                 console.log('bullet', i, 'and enemy', j, 'collided');
                 score += 10;
 
@@ -122,6 +122,12 @@ function updateGame() {
     if (keys["ArrowRight"]) moveHero("right");
     if (keys[" "]) {
         bullets.push({x: hero.x + hero.width / 2 - 2, y: hero.y - 10}); // Dodaj metak
+
+        // Pusti zvuk
+        const shootSound = document.getElementById("shoot-sound");
+        shootSound.currentTime = 0; // Resetuj audio ako se brzo puca
+        shootSound.play();
+
         keys[" "] = false; // Resetuj space bar da se metak ne dodaje više puta
     }
 }
@@ -133,4 +139,4 @@ setInterval(() => {
 
 // Prikazivanje početnog stanja
 displayHero(); 
-displayEnemies(); 
+displayEnemies();

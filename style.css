@@ -8,7 +8,7 @@ body{
 }
 
 #hero {
-    background: url('2.gif'); /* Ova slika ostaje ista */
+    background: url('dron.gif'); /* Ova slika ostaje ista */
 	background-size: cover; /* Automatski prilagođava dimenzije slike */
     background-position: center; /* Centriranje slike */
     width: 80px; /* Nova širina */
