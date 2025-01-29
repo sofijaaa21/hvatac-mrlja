@@ -35,7 +35,7 @@ function moveEnemies() {
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].y += 5;
 
-        if (enemies[i].y > 540) { // Kada neprijatelj izađe iz okvira
+        if (enemies[i].y > 480) { // Kada neprijatelj izađe iz okvira
             enemies[i].y = 0;
             enemies[i].x = Math.random() * 980; // Nasumična nova pozicija
         }
@@ -82,11 +82,11 @@ function moveHero(direction) {
 
     if (direction === "up" && hero.y > 0) {
         hero.y -= hero.speed;
-    } else if (direction === "down" && hero.y + hero.height < maxHeight-70) {
+    } else if (direction === "down" && hero.y + hero.height < maxHeight-120) {
         hero.y += hero.speed;
     } else if (direction === "left" && hero.x > 30) {
         hero.x -= hero.speed;
-    } else if (direction === "right" && hero.x + hero.width < maxWidth-70) {
+    } else if (direction === "right" && hero.x + hero.width < maxWidth-120) {
         hero.x += hero.speed;
     }
 }
@@ -131,6 +131,19 @@ function updateGame() {
         keys[" "] = false; // Resetuj space bar da se metak ne dodaje više puta
     }
 }
+document.addEventListener("keydown", function(event) {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        event.preventDefault(); // Sprečava skrolovanje stranice
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space") {
+        event.preventDefault(); // Sprečava pomeranje stranice
+        // Pozovi funkciju za ispaljivanje metka
+        shootBullet();
+    }
+});
 
 setInterval(() => {
     updateGame();

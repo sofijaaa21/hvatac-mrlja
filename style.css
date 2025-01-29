@@ -3,8 +3,8 @@ body{
 }
 #container{
 	background: url('background.jpg');
-	width:1000px;
-	height:550px;
+	width:1200px;
+	height:500px;
 }
 
 #hero {
@@ -17,21 +17,21 @@ body{
 }
 
 .enemy1 {
-    background: url('1.gif'); /* Zameni sa odgovarajućim GIF-om */
+    background: url('mrlja.gif'); /* Zameni sa odgovarajućim GIF-om */
     background-size: cover; /* Automatski prilagođava dimenzije slike */
     background-position: center; /* Centriranje slike */
-    width: 40px; /* Nova širina */
-    height: 40px; /* Nova visina */
+    width: 50px; /* Nova širina */
+    height: 50px; /* Nova visina */
     position: absolute;
 }
 
 
 .bullet {
-    background: url('1942.gif'); /* Sprite slika ostaje ista */
-    background-position: -185px -400px; /* Ažurirano */
-    background-size: auto; /* Držimo originalni izgled sprite slike */
-    width: 18px; /* Povratak na originalnu veličinu metka */
-    height: 18px;
+    background: url('mreza.gif'); /* Sprite slika ostaje ista */
+    background-size: cover; /* Automatski prilagođava dimenzije slike */
+    background-position: center; /* Centriranje slike */
+    width: 80px; /* Povratak na originalnu veličinu metka */
+    height: 80px;
     position: absolute;
 }
 
@@ -41,7 +41,7 @@ body{
 	position:absolute;
 	border:10px solid red;
 	top:20px;
-	left:800px;
+	left:1000px;
 	background-color:white;
 	padding:10px;
 	font-size:30px;
