@@ -12,7 +12,20 @@
 
 	<div id='score'>0</div>
 	<audio id="shoot-sound" src="shoot.mp3"></audio>
-
+	
+	<div id="controls">
+		<div id="button-container">
+			<button onclick="moveHero('up')">⬆️</button>
+			<div class="row">
+				<button onclick="moveHero('left')">⬅️</button>
+				<button onclick="simulateSpace()">🔫</button> <!-- Poziva funkciju za simulaciju Space tastera -->
+				<button onclick="moveHero('right')">➡️</button>
+			</div>
+			<button onclick="moveHero('down')">⬇️</button>
+		</div>
+	</div>
+	
+	
 
 	1. display the hero (DONE)
 	2. make the hero move up and down, left and right (DONE)

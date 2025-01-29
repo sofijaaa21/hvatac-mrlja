@@ -145,6 +145,11 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+function simulateSpace() {
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: " " })); // Simulira pritiskanje Space tastera
+}
+
+
 setInterval(() => {
     updateGame();
     gameLoop();

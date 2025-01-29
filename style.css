@@ -47,3 +47,43 @@ body{
 	font-size:30px;
 	font-family: Arial;	
 }
+
+
+#controls {
+    position: absolute;
+    top: 150px;   /* Postavlja kvadrat u gornji desni ugao */
+    right: 90px; 
+}
+
+#button-container {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.7); /* Poluprovidna crna pozadina */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px; /* Zaobljeni uglovi */
+    padding: 10px;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    margin: 3px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
